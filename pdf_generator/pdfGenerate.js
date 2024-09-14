@@ -2,7 +2,6 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const ejs = require('ejs');
 const path = require('path');
-// const utils = require('./utils'); // Assuming you have a utility module
 
 async function generatePdf(individual_path, data, output_pdf_path) {
     try {
@@ -10,21 +9,21 @@ async function generatePdf(individual_path, data, output_pdf_path) {
         const fn = ejs.compile(fs.readFileSync(individual_path, "utf8"), {
             filename: individual_path,
         });
-        console.log('fn---', fn);
-        console.log('fn--to string-', fn.toString());
+        // console.log('fn---', fn);
+        // console.log('fn--to string-', fn.toString());
 
         // Step 2: Generate HTML from the template
         const html = fn({
             basedir: __dirname, // Assuming `basedir` is the current directory
             result: data
-            // result: utils.getTransformedDataIndividual(data)
         });
 
-        console.log('html---', html);
-        console.log('JSON.stringify(html)---', JSON.stringify(html));
+        // console.log('html---', html);
+        // console.log('JSON.stringify(html)---', JSON.stringify(html));
 
         // Step 3: Save the HTML to a temporary file
         const tempHtmlPath = path.join(__dirname, 'temp.html');
+        console.log('tempHtmlPath---', output_pdf_path);
         fs.writeFileSync(tempHtmlPath, html);
 
         // Step 4: Convert the HTML to PDF using WeasyPrint
@@ -50,9 +49,8 @@ async function generatePdf(individual_path, data, output_pdf_path) {
 
 // Example usage:
 (async () => {
-    const individual_path = './template.ejs'; // Path to your EJS template
+    const individual_path = './src/template.ejs'; // Path to your EJS template
     const data = {}; // Your data object
-    const output_pdf_path = '../../Downloads/output.pdf'; // Path where the PDF will be saved
-
+    const output_pdf_path = './output.pdf'; // Path where the PDF will be saved
     await generatePdf(individual_path, data, output_pdf_path);
 })();

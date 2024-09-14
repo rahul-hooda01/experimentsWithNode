@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "pdfGenerate": "node ./pdfGenerate.js"
+    "pdfGenerate": "node ./pdf_generator/pdfGenerate.js"
   },
   "keywords": [],
   "author": "",
